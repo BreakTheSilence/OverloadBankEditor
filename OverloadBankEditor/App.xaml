@@ -41,10 +41,13 @@
                      </Setter.Value>
                  </Setter>
              </Style>
-            
-             
-             <DataTemplate DataType="{x:Type ViewModels:WorkspaceViewModel}">
-                 <views:WorkspaceView/>
+        
+             <DataTemplate DataType="{x:Type ViewModels:EditExistingBankViewModel}">
+                 <views:EditExistingBankView/>
+             </DataTemplate>
+        
+             <DataTemplate DataType="{x:Type ViewModels:CreateNewBankViewModel}">
+                 <views:CreateNewBankView/>
              </DataTemplate>
         
              <DataTemplate DataType="{x:Type ViewModels:StartViewModel}">

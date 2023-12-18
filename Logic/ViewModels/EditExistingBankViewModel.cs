@@ -2,7 +2,7 @@
 
 namespace Logic.ViewModels;
 
-public class WorkspaceViewModel : ViewModelAbstract
+public class EditExistingBankViewModel : ViewModelAbstract
 {
     
 }

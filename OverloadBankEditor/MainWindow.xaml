@@ -4,10 +4,14 @@
                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                              xmlns:viewModels="clr-namespace:Logic.ViewModels;assembly=Logic"
+                             xmlns:converter="clr-namespace:OverloadBankEditor.Converter"
                              mc:Ignorable="d"
                              Title="MainWindow"
                              WindowState="Maximized"
                              d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}">
+    <Window.Resources>
+        <converter:TypeCheckConverter x:Key="TypeCheckConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -21,12 +25,33 @@
         
         <Grid Grid.Column="0" Grid.Row="0" RowSpan="2" x:Name="NavigationMenuGrid">
             <StackPanel Orientation="Vertical">
-                <Button Command="{Binding TetsCommand}"
-                    Content="tets">
-                </Button>
-                
                 <Button
-                    Content="notets">
+                    Content="Create New Bank"
+                    Command="{Binding CreateNewBankCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentContent, 
+                                Converter={StaticResource TypeCheckConverter}, ConverterParameter='CreateNewBankViewModel'}" Value="True">
+                                    <Setter Property="Background" Value="DarkCyan" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button
+                    Content="Edit existing bank"
+                    Command="{Binding EditExistingBankCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentContent, 
+                                Converter={StaticResource TypeCheckConverter}, ConverterParameter='EditExistingBankViewModel'}" Value="True">
+                                    <Setter Property="Background" Value="DarkCyan" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </StackPanel>
         </Grid>
