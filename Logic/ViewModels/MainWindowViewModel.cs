@@ -12,6 +12,7 @@ public class MainWindowViewModel : ViewModelAbstract
 
     public RelayCommand CreateNewBankCommand { get; }
     public RelayCommand EditExistingBankCommand { get; }
+    public RelayCommand OpenSettingsCommand { get; }
     
     public ViewModelAbstract CurrentContent
     {
@@ -24,6 +25,8 @@ public class MainWindowViewModel : ViewModelAbstract
         _settingsService = settingsService;
         CreateNewBankCommand = new RelayCommand(CreateNewBank);
         EditExistingBankCommand = new RelayCommand(EditExistingBank);
+        OpenSettingsCommand = new RelayCommand(OpenSettings);
+        
         if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath))
         {
             CurrentContent = new SelectFolderViewModel(FolderSelected);
@@ -52,5 +55,10 @@ public class MainWindowViewModel : ViewModelAbstract
     private void EditExistingBank()
     {
         CurrentContent = new EditExistingBankViewModel();
+    }
+
+    private void OpenSettings()
+    {
+        CurrentContent = new SelectFolderViewModel(FolderSelected);
     }
 }

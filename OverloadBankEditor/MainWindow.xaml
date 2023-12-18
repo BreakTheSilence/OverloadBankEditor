@@ -54,6 +54,22 @@
                     </Button.Style>
                 </Button>
             </StackPanel>
+            
+            <Button
+                Content="Settings"
+                VerticalAlignment="Bottom"
+                Command="{Binding OpenSettingsCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentContent, 
+                                Converter={StaticResource TypeCheckConverter}, ConverterParameter='SelectFolderViewModel'}" Value="True">
+                                <Setter Property="Background" Value="DarkCyan" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
         
         <Grid Grid.Column="1" Grid.Row="0" x:Name="PageTitleGrid">
