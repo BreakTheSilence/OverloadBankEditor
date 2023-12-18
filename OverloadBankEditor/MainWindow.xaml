@@ -1,12 +1,42 @@
 ﻿<Window x:Class="OverloadBankEditor.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OverloadBankEditor"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                             xmlns:viewModels="clr-namespace:Logic.ViewModels;assembly=Logic"
+                             mc:Ignorable="d"
+                             Title="MainWindow"
+                             WindowState="Maximized"
+                             d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Column="0" Grid.Row="0" RowSpan="2" x:Name="NavigationMenuGrid">
+            <StackPanel Orientation="Vertical">
+                <Button Command="{Binding TetsCommand}"
+                    Content="tets">
+                </Button>
+                
+                <Button
+                    Content="notets">
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <Grid Grid.Column="1" Grid.Row="0" x:Name="PageTitleGrid">
+            
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="1" x:Name="ContentGrid">
+            <Frame Content="{Binding CurrentContent}" NavigationUIVisibility="Hidden"/>
+        </Grid>
     </Grid>
 </Window>

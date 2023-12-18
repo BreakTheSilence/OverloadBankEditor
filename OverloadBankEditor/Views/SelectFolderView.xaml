@@ -1,0 +1,14 @@
+﻿<Page x:Class="OverloadBankEditor.Views.SelectFolderView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModels="clr-namespace:Logic.ViewModels;assembly=Logic"
+      mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:SelectFolderViewModel}"
+      Title="SelectFolderView" Height="450" Width="800" Loaded="SelectFolderView_OnLoaded">
+    <Grid>
+        <Button HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Content="Select working directory" Width="150" Height="60"
+                Command="{Binding SelectFolderCommand}"/>
+    </Grid>
+</Page>
