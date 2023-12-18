@@ -5,11 +5,13 @@ namespace Logic.ViewModels;
 
 public class SelectFolderViewModel : ViewModelAbstract
 {
-    private Func<string> _selectFolderAction;
+    private Func<string> _selectFolderAction = null!;
+    private readonly Action<string> _folderSelectedAction;
 
     public RelayCommand SelectFolderCommand { get; set; }
-    public SelectFolderViewModel()
+    public SelectFolderViewModel(Action<string> folderSelectedAction)
     {
+        _folderSelectedAction = folderSelectedAction;
         SelectFolderCommand = new RelayCommand(SelectFolder);
     }
 
@@ -21,5 +23,7 @@ public class SelectFolderViewModel : ViewModelAbstract
     private void SelectFolder()
     {
         var selectedFolder = _selectFolderAction();
+        if (string.IsNullOrWhiteSpace(selectedFolder)) return;
+        _folderSelectedAction?.Invoke(selectedFolder);
     }
 }

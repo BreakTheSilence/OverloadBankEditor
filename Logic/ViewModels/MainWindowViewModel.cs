@@ -1,30 +1,41 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Logic.Interfaces;
+﻿using Logic.Interfaces;
+using Logic.Interfaces.Services;
+using Models;
 
 namespace Logic.ViewModels;
 
 public class MainWindowViewModel : ViewModelAbstract
 {
-    private ViewModelAbstract _currentContent;
-    private string _workingDirectoryPath;
+    private readonly ISettingsService _settingsService;
+    private ViewModelAbstract _currentContent = null!;
     
-    public RelayCommand LoadedCommand { get; set; }
-    public RelayCommand TetsCommand { get; set; }
-
     public ViewModelAbstract CurrentContent
     {
         get => _currentContent;
         set => SetProperty(ref _currentContent, value);
     }
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(ISettingsService settingsService)
     {
-        CurrentContent = new StartViewModel();
-        TetsCommand = new RelayCommand(Tets);
+        _settingsService = settingsService;
+
+
+        if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath))
+        {
+            CurrentContent = new SelectFolderViewModel(FolderSelected);
+        }
+        else
+        {
+            CurrentContent = new StartViewModel();
+        }
     }
 
-    private void Tets()
+    private void FolderSelected(string folderPath)
     {
-        CurrentContent = new SelectFolderViewModel();
+        _settingsService.SaveSettings(new Settings()
+        {
+            WorkingDirectoryPath = folderPath
+        });
+        CurrentContent = new StartViewModel();
     }
 }

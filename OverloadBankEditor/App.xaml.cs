@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using Logic.Interfaces.Services;
+using Logic.Services;
 using Logic.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Application = System.Windows.Application;
@@ -14,7 +16,7 @@ public partial class App : Application
     {
         Services = ConfigureServices();
 
-        this.InitializeComponent();
+        InitializeComponent();
     }
     
     public new static App Current => (App)Application.Current;
@@ -26,6 +28,7 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddTransient<MainWindowViewModel>();
+        services.AddTransient<ISettingsService, SettingsService>();
 
         return services.BuildServiceProvider();
     }
