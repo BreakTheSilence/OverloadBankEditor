@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Logic.Interfaces;
 
-namespace Logic.ViewModels;
+namespace Logic.ViewModels.Pages;
 
 public class SettingsPageViewModel : ContentPageViewModelAbstract
 {

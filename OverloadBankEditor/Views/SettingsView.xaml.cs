@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Logic.ViewModels;
+using Logic.ViewModels.Pages;
 
 namespace OverloadBankEditor.Views;
 
-public partial class SelectFolderView : Page
+public partial class SettingsView : Page
 {
-    public SelectFolderView()
+    public SettingsView()
     {
         InitializeComponent();
     }

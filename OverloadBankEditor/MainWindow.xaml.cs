@@ -11,7 +11,18 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
-        DataContext = App.Current.Services.GetRequiredService<MainWindowViewModel>();
+        var viewModel = App.Current.Services.GetRequiredService<MainWindowViewModel>();
+        viewModel.SetupMvvmLogic(SelectBankFile);
+        DataContext = viewModel;
         InitializeComponent();
+    }
+    
+    private string SelectBankFile()
+    {
+        using var dialog = new OpenFileDialog();
+        dialog.Filter = "OVB Files (*.ovb)|*.ovb";
+        dialog.Title = "Select a bank";
+        var result = dialog.ShowDialog();
+        return result != System.Windows.Forms.DialogResult.OK ? string.Empty : dialog.FileName;
     }
 }

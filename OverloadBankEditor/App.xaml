@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ViewModels="clr-namespace:Logic.ViewModels;assembly=Logic"
              xmlns:views="clr-namespace:OverloadBankEditor.Views"
+             xmlns:pages="clr-namespace:Logic.ViewModels.Pages;assembly=Logic"
+             xmlns:controlsViewModels="clr-namespace:Logic.ViewModels.Controls;assembly=Logic"
+             xmlns:controls="clr-namespace:OverloadBankEditor.Controls"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary x:Key="ResourceDictionary">
@@ -42,20 +45,24 @@
                  </Setter>
              </Style>
         
-             <DataTemplate DataType="{x:Type ViewModels:EditExistingBankViewModel}">
+             <DataTemplate DataType="{x:Type pages:EditExistingBankViewModel}">
                  <views:EditExistingBankView/>
              </DataTemplate>
         
-             <DataTemplate DataType="{x:Type ViewModels:CreateNewBankViewModel}">
+             <DataTemplate DataType="{x:Type pages:CreateNewBankViewModel}">
                  <views:CreateNewBankView/>
              </DataTemplate>
         
-             <DataTemplate DataType="{x:Type ViewModels:StartContentPageViewModel}">
+             <DataTemplate DataType="{x:Type pages:StartContentPageViewModel}">
                  <views:StartView/>
              </DataTemplate>
         
-             <DataTemplate DataType="{x:Type ViewModels:SettingsPageViewModel}">
-                 <views:SelectFolderView/>
+             <DataTemplate DataType="{x:Type pages:SettingsPageViewModel}">
+                 <views:SettingsView/>
+             </DataTemplate>
+            
+             <DataTemplate DataType="{x:Type controlsViewModels:BankListViewModel}">
+                 <controls:BankListControl/>
              </DataTemplate>
          </ResourceDictionary>
     </Application.Resources>

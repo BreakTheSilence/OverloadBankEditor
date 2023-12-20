@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Logic.Interfaces;
 using Logic.Interfaces.Services;
+using Logic.ViewModels.Pages;
 using Models;
 
 namespace Logic.ViewModels;
@@ -9,8 +10,10 @@ namespace Logic.ViewModels;
 public class MainWindowViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
+    private readonly IBankLoaderService _bankLoaderService;
     private ContentPageViewModelAbstract _currentContent = null!;
     private string _titleText;
+    private Func<string> _pickBankFileFunction;
 
     public RelayCommand CreateNewBankCommand { get; }
     public RelayCommand EditExistingBankCommand { get; }
@@ -33,9 +36,10 @@ public class MainWindowViewModel : ObservableObject
     }
 
 
-    public MainWindowViewModel(ISettingsService settingsService)
+    public MainWindowViewModel(ISettingsService settingsService, IBankLoaderService bankLoaderService)
     {
         _settingsService = settingsService;
+        _bankLoaderService = bankLoaderService;
         CreateNewBankCommand = new RelayCommand(CreateNewBank);
         EditExistingBankCommand = new RelayCommand(EditExistingBank);
         OpenSettingsCommand = new RelayCommand(OpenSettings);
@@ -48,6 +52,11 @@ public class MainWindowViewModel : ObservableObject
         {
             CurrentContent = new StartContentPageViewModel();
         }
+    }
+
+    public void SetupMvvmLogic(Func<string> pickBankFileFunction)
+    {
+        _pickBankFileFunction = pickBankFileFunction;
     }
 
     private void FolderSelected(string folderPath)
@@ -67,7 +76,7 @@ public class MainWindowViewModel : ObservableObject
 
     private void EditExistingBank()
     {
-        CurrentContent = new EditExistingBankViewModel();
+        CurrentContent = new EditExistingBankViewModel(_pickBankFileFunction, _bankLoaderService);
     }
 
     private void OpenSettings()

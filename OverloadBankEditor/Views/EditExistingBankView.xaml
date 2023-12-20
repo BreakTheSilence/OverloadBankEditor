@@ -3,9 +3,20 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d"
+      xmlns:pages="clr-namespace:Logic.ViewModels.Pages;assembly=Logic"
+      mc:Ignorable="d" d:DataContext="{d:DesignInstance pages:EditExistingBankViewModel}"
       Title="EditExistingBankView" Height="450" Width="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="EditExistingBank"/>
+        <Grid>
+            <Border BorderBrush="DarkCyan" BorderThickness="3" CornerRadius="8">
+                <StackPanel Orientation="Vertical">
+                    <ContentPresenter Content="{Binding BankListViewModel}" />
+                    <Button Content="Add Bank" Command="{Binding AddBankFromFileCommand}"
+                            Width="150" Height="40"/>
+                </StackPanel>
+            </Border>
+                
+        </Grid>
+        
     </Grid>
 </Page>

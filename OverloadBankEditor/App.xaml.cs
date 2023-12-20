@@ -29,6 +29,7 @@ public partial class App : Application
 
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<ISettingsService, SettingsService>();
+        services.AddTransient<IBankLoaderService, BankLoaderService>();
 
         return services.BuildServiceProvider();
     }
