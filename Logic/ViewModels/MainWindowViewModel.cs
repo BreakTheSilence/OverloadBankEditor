@@ -10,7 +10,7 @@ namespace Logic.ViewModels;
 public class MainWindowViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
-    private readonly IBankLoaderService _bankLoaderService;
+    private readonly IBankManagingService _bankManagingService;
     private ContentPageViewModelAbstract _currentContent = null!;
     private string _titleText;
     private Func<string> _pickBankFileFunction;
@@ -36,10 +36,10 @@ public class MainWindowViewModel : ObservableObject
     }
 
 
-    public MainWindowViewModel(ISettingsService settingsService, IBankLoaderService bankLoaderService)
+    public MainWindowViewModel(ISettingsService settingsService, IBankManagingService bankManagingService)
     {
         _settingsService = settingsService;
-        _bankLoaderService = bankLoaderService;
+        _bankManagingService = bankManagingService;
         CreateNewBankCommand = new RelayCommand(CreateNewBank);
         EditExistingBankCommand = new RelayCommand(EditExistingBank);
         OpenSettingsCommand = new RelayCommand(OpenSettings);
@@ -76,7 +76,7 @@ public class MainWindowViewModel : ObservableObject
 
     private void EditExistingBank()
     {
-        CurrentContent = new EditExistingBankViewModel(_pickBankFileFunction, _bankLoaderService);
+        CurrentContent = new EditExistingBankViewModel(_pickBankFileFunction, _bankManagingService);
     }
 
     private void OpenSettings()

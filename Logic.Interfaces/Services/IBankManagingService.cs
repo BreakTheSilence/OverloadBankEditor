@@ -1,6 +1,9 @@
-﻿namespace Logic.Interfaces.Services;
+﻿using Models;
+
+namespace Logic.Interfaces.Services;
 
 public interface IBankManagingService
 {
-    
+    List<Bank> GetAllBanks();
+    void AddBankFromPath(string bankFilePath);
 }

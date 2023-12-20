@@ -3,10 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:controls="clr-namespace:Logic.ViewModels.Controls;assembly=Logic"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance controls:BankListViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="TereTets"/>
+             xmlns:controlsViewModels="clr-namespace:Logic.ViewModels.Controls;assembly=Logic"
+             xmlns:controls="clr-namespace:OverloadBankEditor.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance controlsViewModels:BankListViewModel}">
+    <Grid Width="500">
+        <ListView ItemsSource="{Binding BankViewModels}" HorizontalContentAlignment="Stretch"
+                  SelectionMode="Single" Padding="5" 
+                  SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="LightCyan" BorderThickness="2" CornerRadius="8">
+                        <controls:BankControl DataContext="{Binding}" Margin="3"/>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

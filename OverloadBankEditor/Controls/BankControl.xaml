@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="OverloadBankEditor.Controls.BankControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:models="clr-namespace:Logic.ViewModels.Models;assembly=Logic"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance models:BankViewModel}">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="5">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       Text="{Binding Name}"/>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       Text="{Binding PresetsCount, StringFormat='Presets count: {0}'}"/>
+        </Grid>
+        
+        <Grid Grid.Column="2" Margin="5">
+            <Button Width="70" Height="30" Content="Delete" HorizontalAlignment="Right"
+                    Command="{Binding DeleteBankCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -8,12 +8,6 @@ public class Bank
     [XmlElement(ElementName="preset")]
     public List<Preset> Preset { get; set; }
     
-    [XmlAttribute(AttributeName="xsi", Namespace="http://www.w3.org/2000/xmlns/")]
-    public string Xsi { get; set; }
-    
-    [XmlAttribute(AttributeName="xsd", Namespace="http://www.w3.org/2000/xmlns/")]
-    public string Xsd { get; set; }
-    
     [XmlAttribute(AttributeName="manager_format_version")]
     public string Manager_format_version { get; set; }
     
@@ -25,4 +19,6 @@ public class Bank
     
     [XmlAttribute(AttributeName="created_with")]
     public string Created_with { get; set; }
+
+    public string FilePath { get; set; }
 }

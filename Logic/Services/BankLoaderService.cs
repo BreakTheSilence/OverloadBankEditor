@@ -20,11 +20,20 @@ public class BankLoaderService : IBankLoaderService
             Console.WriteLine(e);
             throw;
         }
-        
     }
 
     public void SaveBankToFile(Bank bank, string filePath)
     {
-        throw new NotImplementedException();
+        var serializer = new XmlSerializer(typeof(Bank));
+        try
+        {
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+            serializer.Serialize(fileStream, bank);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

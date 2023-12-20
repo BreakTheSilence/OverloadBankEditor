@@ -5,15 +5,23 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:pages="clr-namespace:Logic.ViewModels.Pages;assembly=Logic"
       mc:Ignorable="d" d:DataContext="{d:DesignInstance pages:EditExistingBankViewModel}"
-      Title="EditExistingBankView" Height="450" Width="800">
+      Title="EditExistingBankView">
     <Grid>
-        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" HorizontalAlignment="Left" Margin="15">
             <Border BorderBrush="DarkCyan" BorderThickness="3" CornerRadius="8">
-                <StackPanel Orientation="Vertical">
-                    <ContentPresenter Content="{Binding BankListViewModel}" />
-                    <Button Content="Add Bank" Command="{Binding AddBankFromFileCommand}"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ContentPresenter Grid.Row="0" Content="{Binding BankListViewModel}" />
+                    <Button Grid.Row="1" Content="Add Bank" Command="{Binding AddBankFromFileCommand}"
                             Width="150" Height="40"/>
-                </StackPanel>
+                </Grid>
             </Border>
                 
         </Grid>
