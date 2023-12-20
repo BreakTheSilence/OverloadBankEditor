@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Logic.Interfaces.Services;
 using Models;
 
 namespace Logic.ViewModels.Models;
@@ -7,11 +8,18 @@ namespace Logic.ViewModels.Models;
 public class PresetViewModel : ObservableObject
 {
     private readonly Preset _preset;
+    private bool _isEditing;
 
     public string Name
     {
         get => _preset.Name;
         set => SetProperty(_preset.Name, value, _preset, (u, n) => u.Name = n);
+    }
+
+    public bool IsEditing
+    {
+        get => _isEditing;
+        set => SetProperty(ref _isEditing, value);
     }
 
     public string ShortenContent
@@ -31,15 +39,22 @@ public class PresetViewModel : ObservableObject
     }
 
     public RelayCommand DeletePresetCommand { get; }
+    public RelayCommand ToggleEditCommand { get; }
     
     public PresetViewModel(Preset preset)
     {
         _preset = preset;
         DeletePresetCommand = new RelayCommand(DeletePreset);
+        ToggleEditCommand = new RelayCommand(ToggleEdit);
     }
 
     private void DeletePreset()
     {
-        
+        IsEditing = true;
+    }
+
+    private void ToggleEdit()
+    {
+        IsEditing = !IsEditing;
     }
 }

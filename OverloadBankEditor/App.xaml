@@ -6,6 +6,7 @@
              xmlns:pages="clr-namespace:Logic.ViewModels.Pages;assembly=Logic"
              xmlns:controlsViewModels="clr-namespace:Logic.ViewModels.Controls;assembly=Logic"
              xmlns:controls="clr-namespace:OverloadBankEditor.Controls"
+             xmlns:converter="clr-namespace:OverloadBankEditor.Converter"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary x:Key="ResourceDictionary">
@@ -68,6 +69,8 @@
              <DataTemplate DataType="{x:Type controlsViewModels:PresetListViewModel}">
                  <controls:PresetListControl/>
              </DataTemplate>
+            
+            <converter:BoolToVisibilityWithParamConverter x:Key="BooleanToVisibilityWithParamConverter"/>
          </ResourceDictionary>
     </Application.Resources>
 </Application>
