@@ -25,6 +25,18 @@
             </Border>
                 
         </Grid>
-        
+        <Grid Grid.Column="1">
+            <Border BorderBrush="DarkCyan" BorderThickness="3" CornerRadius="8" Margin="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ContentPresenter Content="{Binding PresetListViewModel}" />
+                    <Button Grid.Row="1" Content="Add Bank" 
+                            Width="150" Height="40"/>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

@@ -27,6 +27,7 @@ public class BankViewModel : ObservableObject
     public string BankFilePath => _bank.FilePath;
 
     public int PresetsCount => _bank.Preset.Count;
+    public List<Preset> Presets => _bank.Preset;
 
     private void DeleteBank()
     {

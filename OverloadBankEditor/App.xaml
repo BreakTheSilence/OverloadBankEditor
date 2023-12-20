@@ -64,6 +64,10 @@
              <DataTemplate DataType="{x:Type controlsViewModels:BankListViewModel}">
                  <controls:BankListControl/>
              </DataTemplate>
+            
+             <DataTemplate DataType="{x:Type controlsViewModels:PresetListViewModel}">
+                 <controls:PresetListControl/>
+             </DataTemplate>
          </ResourceDictionary>
     </Application.Resources>
 </Application>

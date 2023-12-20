@@ -3,10 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:OverloadBankEditor.Controls"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:viewModels="clr-namespace:Logic.ViewModels.Controls;assembly=Logic"
+             xmlns:controls="clr-namespace:OverloadBankEditor.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:PresetListViewModel}">
     <Grid>
-        
+        <ListView ItemsSource="{Binding PresetViewModels}" HorizontalContentAlignment="Stretch"
+                  SelectionMode="Single" Padding="5" 
+                  SelectedItem="{Binding SelectedPreset, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="LightCyan" BorderThickness="2" CornerRadius="8">
+                        <controls:PresetControl DataContext="{Binding}" Margin="3"/>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

@@ -10,6 +10,7 @@ public class BankListViewModel : ObservableObject
 {
     private readonly IBankManagingService _bankManagingService;
     private readonly Action<BankViewModel> _bankSelectedAction;
+    private readonly Action<BankViewModel> _bankDeletedAction;
     private BankViewModel _selectedItem;
 
     public ObservableCollection<BankViewModel> BankViewModels { get; } = [];
@@ -26,10 +27,12 @@ public class BankListViewModel : ObservableObject
         }
     }
 
-    public BankListViewModel(IBankManagingService bankManagingService, Action<BankViewModel> bankSelectedAction)
+    public BankListViewModel(IBankManagingService bankManagingService, Action<BankViewModel> bankSelectedAction,
+        Action<BankViewModel> bankDeletedAction)
     {
         _bankManagingService = bankManagingService;
         _bankSelectedAction = bankSelectedAction;
+        _bankDeletedAction = bankDeletedAction;
         LoadBanks();
     }
 
@@ -52,5 +55,6 @@ public class BankListViewModel : ObservableObject
         }
 
         LoadBanks();
+        _bankDeletedAction(bankViewModel);
     }
 }
