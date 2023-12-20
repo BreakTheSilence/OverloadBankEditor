@@ -3,16 +3,20 @@ using Logic.Interfaces;
 
 namespace Logic.ViewModels;
 
-public class SelectFolderViewModel : ViewModelAbstract
+public class SettingsPageViewModel : ContentPageViewModelAbstract
 {
     private Func<string> _selectFolderAction = null!;
     private readonly Action<string> _folderSelectedAction;
 
     public RelayCommand SelectFolderCommand { get; set; }
-    public SelectFolderViewModel(Action<string> folderSelectedAction)
+    
+    public override string PageTitle { get; }
+    
+    public SettingsPageViewModel(Action<string> folderSelectedAction)
     {
         _folderSelectedAction = folderSelectedAction;
         SelectFolderCommand = new RelayCommand(SelectFolder);
+        PageTitle = "Settings";
     }
 
     public void SetupFolderSelection(Func<string> selectFolder)

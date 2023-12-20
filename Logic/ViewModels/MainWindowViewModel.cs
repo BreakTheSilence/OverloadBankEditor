@@ -1,24 +1,37 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Logic.Interfaces;
 using Logic.Interfaces.Services;
 using Models;
 
 namespace Logic.ViewModels;
 
-public class MainWindowViewModel : ViewModelAbstract
+public class MainWindowViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
-    private ViewModelAbstract _currentContent = null!;
+    private ContentPageViewModelAbstract _currentContent = null!;
+    private string _titleText;
 
     public RelayCommand CreateNewBankCommand { get; }
     public RelayCommand EditExistingBankCommand { get; }
     public RelayCommand OpenSettingsCommand { get; }
     
-    public ViewModelAbstract CurrentContent
+    public ContentPageViewModelAbstract CurrentContent
     {
         get => _currentContent;
-        set => SetProperty(ref _currentContent, value);
+        set
+        {
+            SetProperty(ref _currentContent, value);
+            TitleText = CurrentContent.PageTitle;
+        }
     }
+
+    public string TitleText
+    {
+        get => _titleText;
+        set => SetProperty(ref _titleText, value);
+    }
+
 
     public MainWindowViewModel(ISettingsService settingsService)
     {
@@ -29,11 +42,11 @@ public class MainWindowViewModel : ViewModelAbstract
         
         if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath))
         {
-            CurrentContent = new SelectFolderViewModel(FolderSelected);
+            CurrentContent = new SettingsPageViewModel(FolderSelected);
         }
         else
         {
-            CurrentContent = new StartViewModel();
+            CurrentContent = new StartContentPageViewModel();
         }
     }
 
@@ -43,7 +56,7 @@ public class MainWindowViewModel : ViewModelAbstract
         {
             WorkingDirectoryPath = folderPath
         });
-        CurrentContent = new StartViewModel();
+        CurrentContent = new StartContentPageViewModel();
     }
 
     private void CreateNewBank()
@@ -59,6 +72,6 @@ public class MainWindowViewModel : ViewModelAbstract
 
     private void OpenSettings()
     {
-        CurrentContent = new SelectFolderViewModel(FolderSelected);
+        CurrentContent = new SettingsPageViewModel(FolderSelected);
     }
 }

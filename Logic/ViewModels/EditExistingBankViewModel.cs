@@ -2,7 +2,11 @@
 
 namespace Logic.ViewModels;
 
-public class EditExistingBankViewModel : ViewModelAbstract
+public class EditExistingBankViewModel : ContentPageViewModelAbstract
 {
-    
+    public EditExistingBankViewModel()
+    {
+        PageTitle = "Edit Existing Bank";
+    }
+    public override string PageTitle { get; }
 }

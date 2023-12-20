@@ -9,7 +9,6 @@ public partial class SelectFolderView : Page
     public SelectFolderView()
     {
         InitializeComponent();
-
     }
 
     private string SelectWorkingDirectory()
@@ -21,7 +20,7 @@ public partial class SelectFolderView : Page
 
     private void SelectFolderView_OnLoaded(object sender, RoutedEventArgs e)
     {
-        if (DataContext is not SelectFolderViewModel viewModel) return;
+        if (DataContext is not SettingsPageViewModel viewModel) return;
         viewModel.SetupFolderSelection(SelectWorkingDirectory);
     }
 }

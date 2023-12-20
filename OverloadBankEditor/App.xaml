@@ -50,11 +50,11 @@
                  <views:CreateNewBankView/>
              </DataTemplate>
         
-             <DataTemplate DataType="{x:Type ViewModels:StartViewModel}">
+             <DataTemplate DataType="{x:Type ViewModels:StartContentPageViewModel}">
                  <views:StartView/>
              </DataTemplate>
         
-             <DataTemplate DataType="{x:Type ViewModels:SelectFolderViewModel}">
+             <DataTemplate DataType="{x:Type ViewModels:SettingsPageViewModel}">
                  <views:SelectFolderView/>
              </DataTemplate>
          </ResourceDictionary>
