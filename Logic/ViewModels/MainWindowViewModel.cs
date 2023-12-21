@@ -11,6 +11,7 @@ public class MainWindowViewModel : ObservableObject
 {
     private readonly ISettingsService _settingsService;
     private readonly IBankManagingService _bankManagingService;
+    private readonly IDialogService _dialogService;
     private ContentPageViewModelAbstract _currentContent = null!;
     private string _titleText;
     private Func<string> _pickBankFileFunction;
@@ -36,10 +37,12 @@ public class MainWindowViewModel : ObservableObject
     }
 
 
-    public MainWindowViewModel(ISettingsService settingsService, IBankManagingService bankManagingService)
+    public MainWindowViewModel(ISettingsService settingsService, 
+        IBankManagingService bankManagingService, IDialogService dialogService)
     {
         _settingsService = settingsService;
         _bankManagingService = bankManagingService;
+        _dialogService = dialogService;
         CreateNewBankCommand = new RelayCommand(CreateNewBank);
         EditExistingBankCommand = new RelayCommand(EditExistingBank);
         OpenSettingsCommand = new RelayCommand(OpenSettings);
@@ -76,7 +79,7 @@ public class MainWindowViewModel : ObservableObject
 
     private void EditExistingBank()
     {
-        CurrentContent = new EditExistingBankViewModel(_pickBankFileFunction, _bankManagingService);
+        CurrentContent = new EditExistingBankViewModel(_pickBankFileFunction, _bankManagingService, _dialogService);
     }
 
     private void OpenSettings()

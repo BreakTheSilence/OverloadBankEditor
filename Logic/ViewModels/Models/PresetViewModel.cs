@@ -8,18 +8,12 @@ namespace Logic.ViewModels.Models;
 public class PresetViewModel : ObservableObject
 {
     private readonly Preset _preset;
-    private bool _isEditing;
+    private readonly IDialogService _dialogService;
 
     public string Name
     {
         get => _preset.Name;
         set => SetProperty(_preset.Name, value, _preset, (u, n) => u.Name = n);
-    }
-
-    public bool IsEditing
-    {
-        get => _isEditing;
-        set => SetProperty(ref _isEditing, value);
     }
 
     public string ShortenContent
@@ -39,22 +33,25 @@ public class PresetViewModel : ObservableObject
     }
 
     public RelayCommand DeletePresetCommand { get; }
-    public RelayCommand ToggleEditCommand { get; }
+    public RelayCommand OpenTextInputDialogCommand { get; }
     
-    public PresetViewModel(Preset preset)
+    public PresetViewModel(Preset preset, IDialogService dialogService)
     {
         _preset = preset;
+        _dialogService = dialogService;
         DeletePresetCommand = new RelayCommand(DeletePreset);
-        ToggleEditCommand = new RelayCommand(ToggleEdit);
+        OpenTextInputDialogCommand = new RelayCommand(OpenTextInputDialog);
     }
 
     private void DeletePreset()
     {
-        IsEditing = true;
+        
     }
 
-    private void ToggleEdit()
+    private void OpenTextInputDialog()
     {
-        IsEditing = !IsEditing;
+        var newName = _dialogService.ShowTextInputDialog("Enter new preset name");
+        if (string.IsNullOrWhiteSpace(newName)) return;
+        Name = newName;
     }
 }

@@ -2,6 +2,7 @@
 using Logic.Services;
 using Logic.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using OverloadBankEditor.Services;
 using Application = System.Windows.Application;
 
 namespace OverloadBankEditor;
@@ -30,6 +31,7 @@ public partial class App : Application
         services.AddTransient<ISettingsService, SettingsService>();
         services.AddTransient<IBankLoaderService, BankLoaderService>();
         services.AddTransient<IBankManagingService, BankManagingService>();
+        services.AddTransient<IDialogService, DialogService>();
 
         return services.BuildServiceProvider();
     }

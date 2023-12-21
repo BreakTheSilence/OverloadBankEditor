@@ -4,7 +4,6 @@ using Logic.Interfaces;
 using Logic.Interfaces.Services;
 using Logic.ViewModels.Controls;
 using Logic.ViewModels.Models;
-using Models;
 
 namespace Logic.ViewModels.Pages;
 
@@ -12,6 +11,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
 {
     private readonly Func<string> _pickBankFileFunction;
     private readonly IBankManagingService _bankLoaderService;
+    private readonly IDialogService _dialogService;
     private BankListViewModel _bankListViewModel;
     private PresetListViewModel _presetListViewModel;
     public override string PageTitle { get; }
@@ -29,10 +29,12 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
         private set => SetProperty(ref _presetListViewModel, value);
     }
 
-    public EditExistingBankViewModel(Func<string> pickBankFileFunction, IBankManagingService bankLoaderService)
+    public EditExistingBankViewModel(Func<string> pickBankFileFunction, IBankManagingService bankLoaderService,
+        IDialogService dialogService)
     {
         _pickBankFileFunction = pickBankFileFunction;
         _bankLoaderService = bankLoaderService;
+        _dialogService = dialogService;
         PageTitle = "Edit Existing Bank";
         AddBankFromFileCommand = new RelayCommand(AddBankFromFile);
         ReloadBankList();
@@ -54,7 +56,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
 
     private void ReloadPresetList(BankViewModel bankViewModel)
     {
-        PresetListViewModel = new PresetListViewModel(bankViewModel);
+        PresetListViewModel = new PresetListViewModel(bankViewModel, _dialogService);
     }
 
     private void BankSelected(BankViewModel bankViewModel)

@@ -5,9 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Logic.ViewModels;assembly=Logic"
         xmlns:converter="clr-namespace:OverloadBankEditor.Converter"
-        mc:Ignorable="d"
-        Title="MainWindow"
-        WindowState="Maximized"
+        mc:Ignorable="d" Title="MainWindow" WindowState="Maximized"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}">
     <Window.Resources>
         <converter:TypeCheckConverter x:Key="TypeCheckConverter" />
@@ -22,7 +20,7 @@
             <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0" RowSpan="2" x:Name="NavigationMenuGrid">
+        <Grid Grid.Column="0" Grid.Row="0" RowSpan="2">
             <Border BorderThickness="3" BorderBrush="LightCyan" CornerRadius="8" Padding="5">
                 <Grid>
                     <StackPanel Orientation="Vertical">
@@ -80,14 +78,14 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="0" x:Name="PageTitleGrid">
+        <Grid Grid.Column="1" Grid.Row="0">
             <Border BorderThickness="3" BorderBrush="Red" CornerRadius="8">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding TitleText}"
                            FontSize="30" />
             </Border>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1" x:Name="ContentGrid">
+        <Grid Grid.Row="1" Grid.Column="1">
             <Frame Content="{Binding CurrentContent}" NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>

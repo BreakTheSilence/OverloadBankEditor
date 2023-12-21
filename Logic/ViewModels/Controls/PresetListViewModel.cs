@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Logic.Interfaces.Services;
 using Logic.ViewModels.Models;
 using Models;
 
@@ -17,12 +18,12 @@ public class PresetListViewModel : ObservableObject
         set => SetProperty(ref _selectedPreset, value);
     }
 
-    public PresetListViewModel(BankViewModel bank)
+    public PresetListViewModel(BankViewModel bank, IDialogService dialogService)
     {
         DisplayedBank = bank;
         foreach (var preset in bank.Presets)
         {
-            var presetViewModel = new PresetViewModel(preset);
+            var presetViewModel = new PresetViewModel(preset, dialogService);
             PresetViewModels.Add(presetViewModel);
         }
     }
