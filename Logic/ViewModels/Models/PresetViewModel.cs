@@ -9,6 +9,7 @@ public class PresetViewModel : ObservableObject
 {
     private readonly Preset _preset;
     private readonly IDialogService _dialogService;
+    private readonly Action<PresetViewModel> _deletePresetAction;
 
     public string Name
     {
@@ -32,20 +33,23 @@ public class PresetViewModel : ObservableObject
         }
     }
 
+    public Preset Preset => _preset;
+
     public RelayCommand DeletePresetCommand { get; }
     public RelayCommand OpenTextInputDialogCommand { get; }
     
-    public PresetViewModel(Preset preset, IDialogService dialogService)
+    public PresetViewModel(Preset preset, IDialogService dialogService, Action<PresetViewModel> deletePresetAction)
     {
         _preset = preset;
         _dialogService = dialogService;
+        _deletePresetAction = deletePresetAction;
         DeletePresetCommand = new RelayCommand(DeletePreset);
         OpenTextInputDialogCommand = new RelayCommand(OpenTextInputDialog);
     }
 
     private void DeletePreset()
     {
-        
+        _deletePresetAction(this);
     }
 
     private void OpenTextInputDialog()

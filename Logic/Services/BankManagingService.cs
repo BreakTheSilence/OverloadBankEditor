@@ -42,6 +42,11 @@ public class BankManagingService : IBankManagingService
         _bankLoaderService.SaveBankToFile(bank, Path.Combine(settings.WorkingDirectoryPath, $"{Guid.NewGuid()}.ovb"));
     }
 
+    public void UpdateBank(Bank bank)
+    {
+        _bankLoaderService.SaveBankToFile(bank, bank.FilePath);
+    }
+
     private List<string> GetBankFilePaths(string workingDirectoryPath)
     {
         var ovbFiles = Directory.GetFiles(workingDirectoryPath, "*.ovb").ToList();

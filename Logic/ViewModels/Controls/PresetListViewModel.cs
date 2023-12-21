@@ -8,6 +8,7 @@ namespace Logic.ViewModels.Controls;
 
 public class PresetListViewModel : ObservableObject
 {
+    private readonly Action<BankViewModel, PresetViewModel> _presetDeletedFromBank;
     private PresetViewModel _selectedPreset;
     public ObservableCollection<PresetViewModel> PresetViewModels { get; } = [];
     public BankViewModel DisplayedBank { get; }
@@ -18,13 +19,20 @@ public class PresetListViewModel : ObservableObject
         set => SetProperty(ref _selectedPreset, value);
     }
 
-    public PresetListViewModel(BankViewModel bank, IDialogService dialogService)
+    public PresetListViewModel(BankViewModel bank, IDialogService dialogService,
+        Action<BankViewModel, PresetViewModel> presetDeletedFromBank)
     {
+        _presetDeletedFromBank = presetDeletedFromBank;
         DisplayedBank = bank;
-        foreach (var preset in bank.Presets)
+        foreach (var preset in bank.Bank.Preset)
         {
-            var presetViewModel = new PresetViewModel(preset, dialogService);
+            var presetViewModel = new PresetViewModel(preset, dialogService, DeletePresetAction);
             PresetViewModels.Add(presetViewModel);
         }
+    }
+
+    private void DeletePresetAction(PresetViewModel preset)
+    {
+        _presetDeletedFromBank(DisplayedBank, preset);
     }
 }
