@@ -57,7 +57,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
     private void ReloadPresetList(BankViewModel bankViewModel)
     {
         PresetListViewModel = new PresetListViewModel(bankViewModel, _dialogService, 
-            PresetDeletedFromBank, PresetsSorted);
+            PresetDeletedFromBank, PresetsUpdated);
     }
 
     private void BankSelected(BankViewModel bankViewModel)
@@ -80,7 +80,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
         ReloadPresetList(bank);
     }
 
-    private void PresetsSorted(BankViewModel bankViewModel)
+    private void PresetsUpdated(BankViewModel bankViewModel)
     {
         _bankManagingService.UpdateBank(bankViewModel.Bank);
         ReloadPresetList(bankViewModel);

@@ -7,10 +7,6 @@
              xmlns:controls="clr-namespace:OverloadBankEditor.Controls"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:PresetListViewModel}">
     <Grid>
-        <!-- <Grid.RowDefinitions> -->
-        <!--     <RowDefinition Height="6*"/> -->
-        <!--     <RowDefinition Height="*"/> -->
-        <!-- </Grid.RowDefinitions> -->
         <Grid Grid.Row="0">
             <ListView ItemsSource="{Binding PresetViewModels}" HorizontalContentAlignment="Stretch"
                       SelectionMode="Single" Padding="5"
@@ -24,11 +20,5 @@
                 </ListView.ItemTemplate>
             </ListView>    
         </Grid>
-        
-        <!-- <Grid Grid.Row="1"> -->
-        <!--     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"> -->
-        <!--         <Button Height="40" Width="120" Content="Sort By Name"/> -->
-        <!--     </StackPanel> -->
-        <!-- </Grid> -->
     </Grid>
 </UserControl>

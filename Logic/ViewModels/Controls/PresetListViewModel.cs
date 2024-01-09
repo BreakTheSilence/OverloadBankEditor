@@ -11,7 +11,7 @@ public class PresetListViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly Action<BankViewModel, PresetViewModel> _presetDeletedFromBank;
-    private readonly Action<BankViewModel> _presetsSortedAction;
+    private readonly Action<BankViewModel> _presetsCollectionUpdateAction;
     private PresetViewModel _selectedPreset;
     public ObservableCollection<PresetViewModel> PresetViewModels { get; } = [];
     public BankViewModel DisplayedBank { get; }
@@ -23,15 +23,21 @@ public class PresetListViewModel : ObservableObject
     }
     
     public RelayCommand SortByNameCommand { get; }
+    public RelayCommand RemoveContentDuplicatesCommand { get; }
+    public RelayCommand AddNumberingCommand { get; }
+    public RelayCommand RemoveNumberingCommand { get; }
 
     public PresetListViewModel(BankViewModel bank, IDialogService dialogService,
-        Action<BankViewModel, PresetViewModel> presetDeletedFromBank, Action<BankViewModel> presetsSortedAction)
+        Action<BankViewModel, PresetViewModel> presetDeletedFromBank, Action<BankViewModel> presetsCollectionUpdateAction)
     {
         _dialogService = dialogService;
         _presetDeletedFromBank = presetDeletedFromBank;
-        _presetsSortedAction = presetsSortedAction;
+        _presetsCollectionUpdateAction = presetsCollectionUpdateAction;
         DisplayedBank = bank;
         SortByNameCommand = new RelayCommand(SortByName);
+        RemoveContentDuplicatesCommand = new RelayCommand(RemoveContentDuplicates);
+        AddNumberingCommand = new RelayCommand(AddNumbering);
+        RemoveNumberingCommand = new RelayCommand(RemoveNumbering);
         var presets = DisplayedBank.Bank.Preset.ToList();
         UpdateObservableCollection(presets);
     }
@@ -46,7 +52,26 @@ public class PresetListViewModel : ObservableObject
         var presets = DisplayedBank.Bank.Preset.OrderBy(x => x.Name).ToList();
         UpdateObservableCollection(presets);
         DisplayedBank.Bank.Preset = presets;
-        _presetsSortedAction.Invoke(DisplayedBank);
+        _presetsCollectionUpdateAction.Invoke(DisplayedBank);
+    }
+    
+    private void RemoveContentDuplicates()
+    {
+        var presets = DisplayedBank.Bank.Preset.ToList();
+        var result = presets.GroupBy(p => p.Content)
+            .Select(group => group.First())
+            .ToList();
+        DisplayedBank.Bank.Preset = result;
+        _presetsCollectionUpdateAction.Invoke(DisplayedBank);
+    }
+
+    private void AddNumbering()
+    {
+        
+    }
+    private void RemoveNumbering()
+    {
+        
     }
 
     private void UpdateObservableCollection(IEnumerable<Preset> presets)
