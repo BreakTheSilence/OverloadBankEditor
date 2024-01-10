@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controlsViewModels="clr-namespace:Logic.ViewModels.Notifications;assembly=Logic"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance controlsViewModels:DialogViewModel}"
-        Title="DialogView" Height="300" Width="400" Loaded="DialogView_OnLoaded" WindowStartupLocation="CenterOwner">
+        Title="DialogView" Height="300" Width="400" Loaded="DialogView_OnLoaded" WindowStartupLocation="CenterOwner"
+        WindowStyle="None">
     <Window.Resources>
         <DataTemplate DataType="{x:Type controlsViewModels:NotificationDialogViewModel}">
             <Grid>

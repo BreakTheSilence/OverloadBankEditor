@@ -7,24 +7,22 @@ namespace Logic.ViewModels.Models;
 
 public class PresetViewModel : ObservableObject
 {
-    private readonly Preset _preset;
     private readonly IDialogService _dialogService;
-    private readonly Action<PresetViewModel> _deletePresetAction;
 
     public string Name
     {
-        get => _preset.Name;
-        set => SetProperty(_preset.Name, value, _preset, (u, n) => u.Name = n);
+        get => Preset.Name;
+        set => SetProperty(Preset.Name, value, Preset, (u, n) => u.Name = n);
     }
 
     public string ShortenContent
     {
         get
         {
-            var content = _preset.Content;
+            var content = Preset.Content;
             if (string.IsNullOrEmpty(content) || content.Length < 2)
             {
-                return _preset.Content; // Or return an empty string or null, based on your requirements
+                return Preset.Content; // Or return an empty string or null, based on your requirements
             }
 
             var firstTwoChars = content[..2];
@@ -33,23 +31,19 @@ public class PresetViewModel : ObservableObject
         }
     }
 
-    public Preset Preset => _preset;
-
+    public Preset Preset { get; }
+    public bool IsPresetDeleteEnabled { get; }
     public RelayCommand DeletePresetCommand { get; }
     public RelayCommand OpenTextInputDialogCommand { get; }
     
-    public PresetViewModel(Preset preset, IDialogService dialogService, Action<PresetViewModel> deletePresetAction)
+    public PresetViewModel(Preset preset, IDialogService dialogService, Action<PresetViewModel> deletePresetAction,
+        bool isDeleteEnabled)
     {
-        _preset = preset;
+        Preset = preset;
+        IsPresetDeleteEnabled = isDeleteEnabled;
         _dialogService = dialogService;
-        _deletePresetAction = deletePresetAction;
-        DeletePresetCommand = new RelayCommand(DeletePreset);
+        DeletePresetCommand = new RelayCommand(() => deletePresetAction(this));
         OpenTextInputDialogCommand = new RelayCommand(OpenTextInputDialog);
-    }
-
-    private void DeletePreset()
-    {
-        _deletePresetAction(this);
     }
 
     private void OpenTextInputDialog()

@@ -12,9 +12,10 @@ public class PresetListViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly Action<BankViewModel, PresetViewModel> _presetDeletedFromBank;
     private readonly Action<BankViewModel> _presetsCollectionUpdateAction;
+    private readonly bool _isDeleteEnabled;
     private PresetViewModel _selectedPreset;
     public ObservableCollection<PresetViewModel> PresetViewModels { get; } = [];
-    public BankViewModel DisplayedBank { get; }
+    public BankViewModel? DisplayedBank { get; }
 
     public PresetViewModel SelectedPreset
     {
@@ -28,11 +29,13 @@ public class PresetListViewModel : ObservableObject
     public RelayCommand RemoveNumberingCommand { get; }
 
     public PresetListViewModel(BankViewModel bank, IDialogService dialogService,
-        Action<BankViewModel, PresetViewModel> presetDeletedFromBank, Action<BankViewModel> presetsCollectionUpdateAction)
+        Action<BankViewModel, PresetViewModel> presetDeletedFromBank, Action<BankViewModel> presetsCollectionUpdateAction,
+        bool isDeleteEnabled = true)
     {
         _dialogService = dialogService;
         _presetDeletedFromBank = presetDeletedFromBank;
         _presetsCollectionUpdateAction = presetsCollectionUpdateAction;
+        _isDeleteEnabled = isDeleteEnabled;
         DisplayedBank = bank;
         SortByNameCommand = new RelayCommand(SortByName);
         RemoveContentDuplicatesCommand = new RelayCommand(RemoveContentDuplicates);
@@ -79,7 +82,7 @@ public class PresetListViewModel : ObservableObject
         PresetViewModels.Clear();
         foreach (var preset in presets)
         {
-            var presetViewModel = new PresetViewModel(preset, _dialogService, DeletePresetAction);
+            var presetViewModel = new PresetViewModel(preset, _dialogService, DeletePresetAction, _isDeleteEnabled);
             PresetViewModels.Add(presetViewModel);
         }
     }

@@ -6,29 +6,30 @@ namespace Logic.ViewModels.Models;
 
 public class BankViewModel : ObservableObject
 {
-    private readonly Bank _bank;
     private readonly Action<BankViewModel> _bankDeleteRequested;
 
     public RelayCommand DeleteBankCommand { get; }
-    public RelayCommand<Preset> DeletePresetCommand { get; set; }
+    public RelayCommand<Preset> DeletePresetCommand { get; }
+    public bool IsDeleteEnabled { get; }
 
-    public BankViewModel(Bank bank, Action<BankViewModel> bankDeleteRequested)
+    public BankViewModel(Bank bank, Action<BankViewModel> bankDeleteRequested, bool isDeleteEnabled)
     {
-        _bank = bank;
+        Bank = bank;
         _bankDeleteRequested = bankDeleteRequested;
+        IsDeleteEnabled = isDeleteEnabled;
         DeleteBankCommand = new RelayCommand(DeleteBank);
         DeletePresetCommand = new RelayCommand<Preset>(DeletePreset);
     }
 
     public string Name
     {
-        get => _bank.Name;
-        set => SetProperty(_bank.Name, value, _bank, (u, n) => u.Name = n);
+        get => Bank.Name;
+        set => SetProperty(Bank.Name, value, Bank, (u, n) => u.Name = n);
     }
 
-    public string BankFilePath => _bank.FilePath;
-    public int PresetsCount => _bank.Preset.Count;
-    public Bank Bank => _bank;
+    public string BankFilePath => Bank.FilePath;
+    public int PresetsCount => Bank.Preset.Count;
+    public Bank Bank { get; }
 
     private void DeleteBank()
     {
@@ -37,8 +38,10 @@ public class BankViewModel : ObservableObject
 
     private void DeletePreset(Preset? preset)
     {
-        if (preset is null) return;
-        _bank.Preset.Remove(preset);
+        if (preset is not null)
+        {
+            Bank.Preset.Remove(preset);    
+        }
         OnPropertyChanged(nameof(PresetsCount));
     }
 }

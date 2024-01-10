@@ -26,13 +26,13 @@
                     <StackPanel Orientation="Vertical">
                         <Button
                             Content="Create New Bank"
-                            Command="{Binding CreateNewBankCommand}">
+                            Command="{Binding ProcessPresetsCommand}">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Style.Triggers>
                                         <DataTrigger
                                             Binding="{Binding CurrentContent, 
-                                Converter={StaticResource TypeCheckConverter}, ConverterParameter='CreateNewBankViewModel'}"
+                                Converter={StaticResource TypeCheckConverter}, ConverterParameter='ProcessPresetsViewModel'}"
                                             Value="True">
                                             <Setter Property="Background" Value="DarkCyan" />
                                         </DataTrigger>

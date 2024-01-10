@@ -49,6 +49,10 @@
              <DataTemplate DataType="{x:Type pages:EditExistingBankViewModel}">
                  <views:EditExistingBankView/>
              </DataTemplate>
+            
+             <DataTemplate DataType="{x:Type pages:ProcessPresetsViewModel}">
+                 <views:ProcessPresetsView/>
+             </DataTemplate>
         
              <DataTemplate DataType="{x:Type pages:StartContentPageViewModel}">
                  <views:StartView/>

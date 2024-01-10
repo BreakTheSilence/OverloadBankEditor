@@ -51,14 +51,6 @@
                         <Button  Content="Delete All Presets" Margin="5, 0"
                                  Width="150" Height="40" 
                                  Command="{Binding DeleteAllPresetsCommand}"/>
-                        <!-- <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"> -->
-                        <!--     <Button Width="150" Height="40" Command="{Binding PresetListViewModel.AddNumberingCommand}" Margin="5, 0"> -->
-                        <!--         <TextBlock Text="Add Numbering" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>  -->
-                        <!--     </Button> -->
-                        <!--     <Button Width="150" Height="40" Command="{Binding PresetListViewModel.RemoveNumberingCommand}" Margin="5, 0"> -->
-                        <!--         <TextBlock Text="Remove numbering" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>  -->
-                        <!--     </Button> -->
-                        <!-- </StackPanel> -->
                     </Grid>
                 </Grid>
             </Border>

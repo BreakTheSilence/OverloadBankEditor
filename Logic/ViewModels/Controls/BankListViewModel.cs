@@ -10,22 +10,22 @@ public class BankListViewModel : ObservableObject
 {
     private readonly IBankManagingService _bankManagingService;
     private readonly Action<BankViewModel> _bankSelectedAction;
-    private readonly Action<BankViewModel> _bankDeletedAction;
+    private readonly Action<BankViewModel>? _bankDeletedAction;
     private BankViewModel _selectedItem;
 
     public ObservableCollection<BankViewModel> BankViewModels { get; } = [];
 
-    public BankViewModel SelectedItem
+    public BankViewModel? SelectedItem
     {
         get => _selectedItem;
         set
         {
-            // SetProperty(ref _selectedItem, value);
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             if (value is null) return;
             _bankSelectedAction(value);
         }
     }
+
+    public bool IsDeleteEnabled { get; }
 
     public BankListViewModel(IBankManagingService bankManagingService, Action<BankViewModel> bankSelectedAction,
         Action<BankViewModel> bankDeletedAction)
@@ -33,6 +33,17 @@ public class BankListViewModel : ObservableObject
         _bankManagingService = bankManagingService;
         _bankSelectedAction = bankSelectedAction;
         _bankDeletedAction = bankDeletedAction;
+
+        IsDeleteEnabled = true;
+        LoadBanks();
+    }
+
+    public BankListViewModel(IBankManagingService bankManagingService, Action<BankViewModel> bankSelectedAction)
+    {
+        _bankManagingService = bankManagingService;
+        _bankSelectedAction = bankSelectedAction;
+
+        IsDeleteEnabled = false;
         LoadBanks();
     }
 
@@ -42,7 +53,7 @@ public class BankListViewModel : ObservableObject
         var banks = _bankManagingService.GetAllBanks();
         foreach (var bank in banks)
         {
-            var bankViewModel = new BankViewModel(bank, BankDeleteRequested);
+            var bankViewModel = new BankViewModel(bank, BankDeleteRequested, IsDeleteEnabled);
             BankViewModels.Add(bankViewModel);
         }
     }
@@ -55,6 +66,6 @@ public class BankListViewModel : ObservableObject
         }
 
         LoadBanks();
-        _bankDeletedAction(bankViewModel);
+        _bankDeletedAction?.Invoke(bankViewModel);
     }
 }

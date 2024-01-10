@@ -16,7 +16,7 @@ public class MainWindowViewModel : ObservableObject
     private string _titleText;
     private Func<string> _pickBankFileFunction;
 
-    public RelayCommand CreateNewBankCommand { get; }
+    public RelayCommand ProcessPresetsCommand { get; }
     public RelayCommand EditExistingBankCommand { get; }
     public RelayCommand OpenSettingsCommand { get; }
     
@@ -43,7 +43,7 @@ public class MainWindowViewModel : ObservableObject
         _settingsService = settingsService;
         _bankManagingService = bankManagingService;
         _dialogService = dialogService;
-        CreateNewBankCommand = new RelayCommand(CreateNewBank);
+        ProcessPresetsCommand = new RelayCommand(ProcessPresets);
         EditExistingBankCommand = new RelayCommand(EditExistingBank);
         OpenSettingsCommand = new RelayCommand(OpenSettings);
         
@@ -71,10 +71,10 @@ public class MainWindowViewModel : ObservableObject
         CurrentContent = new StartContentPageViewModel();
     }
 
-    private void CreateNewBank()
+    private void ProcessPresets()
     {
         if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath)) return;
-        // CurrentContent = new CreateNewBankViewModel();
+        CurrentContent = new ProcessPresetsViewModel(_pickBankFileFunction, _bankManagingService, _dialogService);
     }
 
     private void EditExistingBank()

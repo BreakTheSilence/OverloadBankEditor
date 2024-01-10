@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controlsViewModels="clr-namespace:Logic.ViewModels.Controls;assembly=Logic"
-             xmlns:controls="clr-namespace:OverloadBankEditor.Controls"
+             xmlns:controls="clr-namespace:OverloadBankEditor.Controls" x:Name="BankList"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance controlsViewModels:BankListViewModel}">
     <Grid Width="500">
         <ListView ItemsSource="{Binding BankViewModels}" HorizontalContentAlignment="Stretch"
-                  SelectionMode="Multiple" Padding="5" 
+                  SelectionMode="Single" Padding="5" 
                   SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
             <ListView.ItemTemplate>
                 <DataTemplate>

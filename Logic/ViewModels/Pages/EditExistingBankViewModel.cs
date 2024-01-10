@@ -79,6 +79,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
 
     private void BankDeleted(BankViewModel bankViewModel)
     {
+        if (PresetListViewModel?.DisplayedBank is null) return;
         if (bankViewModel.Equals(PresetListViewModel.DisplayedBank))
         {
             PresetListViewModel = null!;
@@ -96,7 +97,13 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
     {
         var userResponse = _dialogService.ShowYesNoDialog("Delete all presets", 
             "Are you sure you want to delete all presets from this bank?");
-        var a = userResponse;
+        if (!userResponse) return;
+        var bank = PresetListViewModel.DisplayedBank;
+        if (bank is null) return;
+        bank.Bank.Preset.Clear();
+        _bankManagingService.UpdateBank(bank.Bank);
+        bank.DeletePresetCommand.Execute(null);
+        PresetsUpdated(bank);
     }
 
     private void PresetsUpdated(BankViewModel bankViewModel)
