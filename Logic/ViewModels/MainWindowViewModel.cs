@@ -74,7 +74,7 @@ public class MainWindowViewModel : ObservableObject
     private void CreateNewBank()
     {
         if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath)) return;
-        CurrentContent = new CreateNewBankViewModel();
+        // CurrentContent = new CreateNewBankViewModel();
     }
 
     private void EditExistingBank()

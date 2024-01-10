@@ -14,7 +14,7 @@ public class DialogService : IDialogService
         var activeView = GetActiveView();
         if (activeView is null) return string.Empty;
 
-        var viewModel = new TextInputDialogViewModelAbstract(dialogTitle);
+        var viewModel = new TextInputDialogViewModel(dialogTitle);
         var dialogViewModel = new DialogViewModel(viewModel);
 
         var dialog = new DialogView
@@ -32,7 +32,12 @@ public class DialogService : IDialogService
     {
         throw new NotImplementedException();
     }
-    
+
+    public void ShowYesNoDialog(string dialogQuestion, string dialogDescription)
+    {
+        throw new NotImplementedException();
+    }
+
     private Window? GetActiveView()
     {
         var active = GetActiveWindow();

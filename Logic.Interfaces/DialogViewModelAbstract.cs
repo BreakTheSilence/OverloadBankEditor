@@ -8,6 +8,8 @@ public abstract class DialogViewModelAbstract : ObservableObject
     public string WindowTitle { get; set; }
     public string NotificationTitle { get; set; }
     public string NotificationContent { get; set; }
+    public abstract string OkAnswer { get; }
+    public abstract string CancelAnswer { get; }
 
     public RelayCommand OkCommand { get; set; }
     public RelayCommand CancelCommand { get; set; }

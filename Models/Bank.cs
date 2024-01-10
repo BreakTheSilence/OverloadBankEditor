@@ -21,4 +21,14 @@ public class Bank
     public string Created_with { get; set; }
 
     public string FilePath { get; set; }
+
+    public static Bank GetEmptyBank()
+    {
+        return new Bank
+        {
+            Manager_format_version = "1",
+            Product_name = "TH-U",
+            Created_with = "65536",
+        };
+    }
 }

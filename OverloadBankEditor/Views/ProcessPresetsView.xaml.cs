@@ -2,9 +2,9 @@
 
 namespace OverloadBankEditor.Views;
 
-public partial class CreateNewBankView : Page
+public partial class ProcessPresetsView : Page
 {
-    public CreateNewBankView()
+    public ProcessPresetsView()
     {
         InitializeComponent();
     }

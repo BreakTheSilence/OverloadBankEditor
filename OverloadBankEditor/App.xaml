@@ -50,10 +50,6 @@
                  <views:EditExistingBankView/>
              </DataTemplate>
         
-             <DataTemplate DataType="{x:Type pages:CreateNewBankViewModel}">
-                 <views:CreateNewBankView/>
-             </DataTemplate>
-        
              <DataTemplate DataType="{x:Type pages:StartContentPageViewModel}">
                  <views:StartView/>
              </DataTemplate>

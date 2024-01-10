@@ -3,9 +3,9 @@ using Logic.Interfaces;
 
 namespace Logic.ViewModels.Notifications;
 
-public class NotificationDialogViewModelAbstract : DialogViewModelAbstract
+public class NotificationDialogViewModel : DialogViewModelAbstract
 {
-    public NotificationDialogViewModelAbstract(string notificationTitle, string notificationContent)
+    public NotificationDialogViewModel(string notificationTitle, string notificationContent)
     {
         NotificationTitle = notificationTitle;
         NotificationContent = notificationContent;
@@ -22,6 +22,9 @@ public class NotificationDialogViewModelAbstract : DialogViewModelAbstract
     {
         
     }
+    
+    public override string OkAnswer => "Ok";
+    public override string CancelAnswer => "Cancel";
 
     public override void SendCloseAction(Action closeAction)
     {

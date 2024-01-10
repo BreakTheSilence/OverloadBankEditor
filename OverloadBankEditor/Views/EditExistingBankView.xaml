@@ -19,8 +19,13 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <ContentPresenter Grid.Row="0" Content="{Binding BankListViewModel}" />
-                    <Button Grid.Row="1" Content="Add Bank" Command="{Binding AddBankFromFileCommand}"
-                            Width="150" Height="40"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                        <Button Content="Add Bank" Command="{Binding AddBankFromFileCommand}"
+                                Width="150" Height="40" Margin="5, 0"/>
+                        
+                        <Button Content="Create New Bank" Command="{Binding CreateNewBankCommand}"
+                                Width="150" Height="40" Margin="5, 0"/>
+                    </StackPanel>
                 </Grid>
             </Border>
                 
@@ -42,15 +47,18 @@
                                 <TextBlock Text="Remove duplicates (content)" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/> 
                             </Button>
                         </StackPanel>
-
-                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button Width="150" Height="40" Command="{Binding PresetListViewModel.AddNumberingCommand}" Margin="5, 0">
-                                <TextBlock Text="Add Numbering" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/> 
-                            </Button>
-                            <Button Width="150" Height="40" Command="{Binding PresetListViewModel.RemoveNumberingCommand}" Margin="5, 0">
-                                <TextBlock Text="Remove numbering" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/> 
-                            </Button>
-                        </StackPanel>
+                        
+                        <Button  Content="Delete All Presets" Margin="5, 0"
+                                 Width="150" Height="40" 
+                                 Command="{Binding PresetListViewModel.SortByNameCommand}"/>
+                        <!-- <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"> -->
+                        <!--     <Button Width="150" Height="40" Command="{Binding PresetListViewModel.AddNumberingCommand}" Margin="5, 0"> -->
+                        <!--         <TextBlock Text="Add Numbering" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>  -->
+                        <!--     </Button> -->
+                        <!--     <Button Width="150" Height="40" Command="{Binding PresetListViewModel.RemoveNumberingCommand}" Margin="5, 0"> -->
+                        <!--         <TextBlock Text="Remove numbering" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>  -->
+                        <!--     </Button> -->
+                        <!-- </StackPanel> -->
                     </Grid>
                 </Grid>
             </Border>

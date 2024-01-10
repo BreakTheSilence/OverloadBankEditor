@@ -8,7 +8,7 @@
              mc:Ignorable="d" d:DataContext="{d:DesignInstance controlsViewModels:BankListViewModel}">
     <Grid Width="500">
         <ListView ItemsSource="{Binding BankViewModels}" HorizontalContentAlignment="Stretch"
-                  SelectionMode="Single" Padding="5" 
+                  SelectionMode="Multiple" Padding="5" 
                   SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
             <ListView.ItemTemplate>
                 <DataTemplate>

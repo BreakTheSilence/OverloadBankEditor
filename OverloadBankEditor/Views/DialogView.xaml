@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DataContext="{d:DesignInstance controlsViewModels:DialogViewModel}"
         Title="DialogView" Height="300" Width="400" Loaded="DialogView_OnLoaded" WindowStartupLocation="CenterOwner">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type controlsViewModels:NotificationDialogViewModelAbstract}">
+        <DataTemplate DataType="{x:Type controlsViewModels:NotificationDialogViewModel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -25,7 +25,7 @@
             </Grid>
         </DataTemplate>
             
-        <DataTemplate DataType="{x:Type controlsViewModels:TextInputDialogViewModelAbstract}">
+        <DataTemplate DataType="{x:Type controlsViewModels:TextInputDialogViewModel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

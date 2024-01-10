@@ -3,12 +3,12 @@ using Logic.Interfaces;
 
 namespace Logic.ViewModels.Notifications;
 
-public class TextInputDialogViewModelAbstract : DialogViewModelAbstract
+public class TextInputDialogViewModel : DialogViewModelAbstract
 {
     private string _userInput;
     private Action _closeAction;
     
-    public TextInputDialogViewModelAbstract(string notificationTitle)
+    public TextInputDialogViewModel(string notificationTitle)
     {
         NotificationTitle = notificationTitle;
         OkCommand = new RelayCommand(Ok);
@@ -33,6 +33,9 @@ public class TextInputDialogViewModelAbstract : DialogViewModelAbstract
         UserInput = string.Empty;
         _closeAction();
     }
+
+    public override string OkAnswer => "Ok";
+    public override string CancelAnswer => "Cancel";
 
     public override void SendCloseAction(Action closeAction)
     {
