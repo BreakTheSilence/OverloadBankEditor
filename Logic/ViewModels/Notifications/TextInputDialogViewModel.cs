@@ -21,8 +21,6 @@ public class TextInputDialogViewModel : DialogViewModelAbstract
         set => SetProperty(ref _userInput, value);
     }
     
-    
-
     private void Ok()
     {
         _closeAction();

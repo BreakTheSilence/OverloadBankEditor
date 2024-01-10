@@ -33,9 +33,23 @@ public class DialogService : IDialogService
         throw new NotImplementedException();
     }
 
-    public void ShowYesNoDialog(string dialogQuestion, string dialogDescription)
+    public bool ShowYesNoDialog(string dialogQuestion, string dialogDescription)
     {
-        throw new NotImplementedException();
+        var activeView = GetActiveView();
+        if (activeView is null) return false;
+
+        var viewModel = new YesNoDialogViewModel(dialogQuestion, dialogDescription);
+        var dialogViewModel = new DialogViewModel(viewModel);
+
+        var dialog = new DialogView
+        {
+            DataContext = dialogViewModel,
+            Owner = activeView
+        };
+
+        dialog.ShowDialog();
+
+        return viewModel.UserResponse;
     }
 
     private Window? GetActiveView()

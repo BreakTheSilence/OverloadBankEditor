@@ -94,7 +94,9 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
 
     private void DeleteAllPresets()
     {
-        throw new NotImplementedException();
+        var userResponse = _dialogService.ShowYesNoDialog("Delete all presets", 
+            "Are you sure you want to delete all presets from this bank?");
+        var a = userResponse;
     }
 
     private void PresetsUpdated(BankViewModel bankViewModel)

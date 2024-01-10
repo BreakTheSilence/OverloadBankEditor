@@ -42,6 +42,26 @@
                 </Grid>
             </Grid>
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type controlsViewModels:YesNoDialogViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               Text="{Binding NotificationTitle}" 
+                               FontSize="20"/>
+                </Grid>
+                    
+                <Grid Grid.Row="1" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               Text="{Binding NotificationContent}"/>
+                    <!-- <TextBox Margin="30, 10" Text="{Binding UserInput}"/> -->
+                </Grid>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Border Background="Aquamarine" CornerRadius="8" Padding="10">
@@ -57,8 +77,8 @@
                     
                     <Grid Grid.Row="1">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button Content="Ok" Margin="10, 0" Height="40" Width="80" Command="{Binding DialogViewModelAbstract.OkCommand}"/>
-                            <Button Content="Cancel" Margin="10, 0" Height="40" Width="80" Command="{Binding DialogViewModelAbstract.CancelCommand}"/>
+                            <Button Content="{Binding DialogViewModelAbstract.OkAnswer}" Margin="10, 0" Height="40" Width="80" Command="{Binding DialogViewModelAbstract.OkCommand}"/>
+                            <Button Content="{Binding DialogViewModelAbstract.CancelAnswer}" Margin="10, 0" Height="40" Width="80" Command="{Binding DialogViewModelAbstract.CancelCommand}"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
