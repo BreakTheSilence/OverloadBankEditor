@@ -51,6 +51,9 @@
                         <Button  Content="Delete All Presets" Margin="5, 0"
                                  Width="150" Height="40" 
                                  Command="{Binding DeleteAllPresetsCommand}"/>
+                        <Button  Content="Delete Selected Presets" Margin="5, 0"
+                                 Width="150" Height="40" 
+                                 Command="{Binding DeleteSelectedPresetsCommand}"/>
                     </Grid>
                 </Grid>
             </Border>

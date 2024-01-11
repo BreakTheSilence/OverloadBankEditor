@@ -13,10 +13,11 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
     private readonly IDialogService _dialogService;
     
     private BankListViewModel? _readonlyBankListViewModel;
-    private BankListViewModel _editableBankListViewModel;
+    private BankListViewModel? _editableBankListViewModel;
     private PresetListViewModel? _readonlyPresetListViewModel;
-    private PresetListViewModel _editablePresetListViewModel;
+    private PresetListViewModel? _editablePresetListViewModel;
     private string _readonlyInfoString;
+    private string _editableInfoString;
 
     public override string PageTitle => "Process Presets";
 
@@ -30,7 +31,7 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
             OnPropertyChanged();
         }
     }
-    public BankListViewModel EditableBankListViewModel
+    public BankListViewModel? EditableBankListViewModel
     {
         get => _editableBankListViewModel;
         set
@@ -50,7 +51,7 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
             OnPropertyChanged();
         }
     }
-    public PresetListViewModel EditablePresetListViewModel
+    public PresetListViewModel? EditablePresetListViewModel
     {
         get => _editablePresetListViewModel;
         set
@@ -71,8 +72,19 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
             OnPropertyChanged();
         }
     }
+    public string EditableInfoString
+    {
+        get => _editableInfoString;
+        set
+        {
+            if (value == _editableInfoString) return;
+            _editableInfoString = value;
+            OnPropertyChanged();
+        }
+    }
 
     public RelayCommand ReselectReadonlyBankCommand { get; }
+    public RelayCommand ReselectEditableBankCommand { get; }
 
     public ProcessPresetsViewModel(Func<string> pickBankFileFunction, IBankManagingService bankManagingService,
         IDialogService dialogService)
@@ -82,8 +94,10 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
         _dialogService = dialogService;
 
         ReselectReadonlyBankCommand = new RelayCommand(ReselectReadonlyBank);
+        ReselectEditableBankCommand = new RelayCommand(ReselectEditableBank);
         
         LoadReadonlyBankList();
+        LoadEditableBankList();
     }
     
     private void ReadonlyBankSelected(BankViewModel bankViewModel)
@@ -94,14 +108,34 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
         ReadonlyInfoString = $"Presets: {ReadonlyPresetListViewModel.PresetViewModels.Count}/256";
     }
     
+    private void EditableBankSelected(BankViewModel bankViewModel)
+    {
+        EditableBankListViewModel = null;
+        
+        EditablePresetListViewModel = new PresetListViewModel(bankViewModel, _dialogService, 
+            EditablePresetDeletedFromBank, EditablePresetsUpdated);
+        
+        EditableInfoString = $"Presets: {EditablePresetListViewModel.PresetViewModels.Count}/256";
+    }
+    
     private void ReadonlyPresetDeletedFromBank(BankViewModel bank, PresetViewModel deletedPreset)
     {
         // ignored
+    }
+    private void EditablePresetDeletedFromBank(BankViewModel bank, PresetViewModel deletedPreset)
+    {
+        bank.DeletePresetCommand.Execute(deletedPreset.Preset);
+        _bankManagingService.UpdateBank(bank.Bank);
+        EditableBankSelected(bank);
     }
     
     private void ReadonlyPresetsUpdated(BankViewModel bankViewModel)
     {
         // ignored
+    }
+    private void EditablePresetsUpdated(BankViewModel bankViewModel)
+    {
+        throw new NotImplementedException();
     }
 
     private void ReselectReadonlyBank()
@@ -109,10 +143,22 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
         LoadReadonlyBankList();
     }
 
+    private void ReselectEditableBank()
+    {
+        LoadEditableBankList();
+    }
+
     private void LoadReadonlyBankList()
     {
         ReadonlyPresetListViewModel = null;
         ReadonlyBankListViewModel = new BankListViewModel(_bankManagingService, ReadonlyBankSelected);
         ReadonlyInfoString = $"Banks: {ReadonlyBankListViewModel.BankViewModels.Count}";
+    }
+
+    private void LoadEditableBankList()
+    {
+        EditablePresetListViewModel = null;
+        EditableBankListViewModel = new BankListViewModel(_bankManagingService, EditableBankSelected);
+        EditableInfoString = $"Banks: {EditableBankListViewModel.BankViewModels.Count}";
     }
 }

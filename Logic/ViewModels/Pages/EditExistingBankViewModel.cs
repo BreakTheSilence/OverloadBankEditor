@@ -18,6 +18,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
     public RelayCommand AddBankFromFileCommand { get; }
     public RelayCommand CreateNewBankCommand { get; }
     public RelayCommand DeleteAllPresetsCommand { get; }
+    public RelayCommand DeleteSelectedPresetsCommand { get; }
 
     public BankListViewModel BankListViewModel
     {
@@ -41,6 +42,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
         AddBankFromFileCommand = new RelayCommand(AddBankFromFile);
         CreateNewBankCommand = new RelayCommand(CreateNewBank);
         DeleteAllPresetsCommand = new RelayCommand(DeleteAllPresets);
+        DeleteSelectedPresetsCommand = new RelayCommand(DeleteSelectedPresets);
         ReloadBankList();
     }
     
@@ -104,6 +106,10 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
         _bankManagingService.UpdateBank(bank.Bank);
         bank.DeletePresetCommand.Execute(null);
         PresetsUpdated(bank);
+    }
+    private void DeleteSelectedPresets()
+    {
+        throw new NotImplementedException();
     }
 
     private void PresetsUpdated(BankViewModel bankViewModel)

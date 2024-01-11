@@ -25,7 +25,7 @@
                 <Grid>
                     <StackPanel Orientation="Vertical">
                         <Button
-                            Content="Create New Bank"
+                            Content="Process Banks"
                             Command="{Binding ProcessPresetsCommand}">
                             <Button.Style>
                                 <Style TargetType="Button">

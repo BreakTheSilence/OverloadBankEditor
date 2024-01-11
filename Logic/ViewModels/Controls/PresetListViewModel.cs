@@ -25,8 +25,6 @@ public class PresetListViewModel : ObservableObject
     
     public RelayCommand SortByNameCommand { get; }
     public RelayCommand RemoveContentDuplicatesCommand { get; }
-    public RelayCommand AddNumberingCommand { get; }
-    public RelayCommand RemoveNumberingCommand { get; }
 
     public PresetListViewModel(BankViewModel bank, IDialogService dialogService,
         Action<BankViewModel, PresetViewModel> presetDeletedFromBank, Action<BankViewModel> presetsCollectionUpdateAction,
@@ -39,8 +37,6 @@ public class PresetListViewModel : ObservableObject
         DisplayedBank = bank;
         SortByNameCommand = new RelayCommand(SortByName);
         RemoveContentDuplicatesCommand = new RelayCommand(RemoveContentDuplicates);
-        AddNumberingCommand = new RelayCommand(AddNumbering);
-        RemoveNumberingCommand = new RelayCommand(RemoveNumbering);
         var presets = DisplayedBank.Bank.Preset.ToList();
         UpdateObservableCollection(presets);
     }
@@ -66,15 +62,6 @@ public class PresetListViewModel : ObservableObject
             .ToList();
         DisplayedBank.Bank.Preset = result;
         _presetsCollectionUpdateAction.Invoke(DisplayedBank);
-    }
-
-    private void AddNumbering()
-    {
-        
-    }
-    private void RemoveNumbering()
-    {
-        
     }
 
     private void UpdateObservableCollection(IEnumerable<Preset> presets)
