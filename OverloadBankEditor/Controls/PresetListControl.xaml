@@ -5,12 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Logic.ViewModels.Controls;assembly=Logic"
              xmlns:controls="clr-namespace:OverloadBankEditor.Controls"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:PresetListViewModel}">
     <Grid>
         <Grid Grid.Row="0">
             <ListView ItemsSource="{Binding PresetViewModels}" HorizontalContentAlignment="Stretch"
-                      SelectionMode="Multiple" Padding="5"
-                      SelectedItem="{Binding SelectedPreset, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
+                      SelectionMode="Multiple" Padding="5">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="SelectionChanged">
+                        <b:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
+                                               CommandParameter="{Binding Path=SelectedItems, 
+                                               RelativeSource={RelativeSource Mode=FindAncestor, 
+                                               AncestorType={x:Type ListView}}}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="LightCyan" BorderThickness="2" CornerRadius="8">

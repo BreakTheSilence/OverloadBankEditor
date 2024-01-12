@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Logic.Interfaces.Services;
@@ -13,18 +15,23 @@ public class PresetListViewModel : ObservableObject
     private readonly Action<BankViewModel, PresetViewModel> _presetDeletedFromBank;
     private readonly Action<BankViewModel> _presetsCollectionUpdateAction;
     private readonly bool _isDeleteEnabled;
-    private PresetViewModel _selectedPreset;
+    // private object _selectedPreset;
     public ObservableCollection<PresetViewModel> PresetViewModels { get; } = [];
     public BankViewModel? DisplayedBank { get; }
 
-    public PresetViewModel SelectedPreset
-    {
-        get => _selectedPreset;
-        set => SetProperty(ref _selectedPreset, value);
-    }
-    
+    // public object SelectedPresets
+    // {
+    //     get => _selectedPreset;
+    //     set
+    //     {
+    //         var a = 5;
+    //         SetProperty(ref _selectedPreset, value);
+    //     }
+    // }
+
     public RelayCommand SortByNameCommand { get; }
     public RelayCommand RemoveContentDuplicatesCommand { get; }
+    public ICommand SelectionChangedCommand { get; }
 
     public PresetListViewModel(BankViewModel bank, IDialogService dialogService,
         Action<BankViewModel, PresetViewModel> presetDeletedFromBank, Action<BankViewModel> presetsCollectionUpdateAction,
@@ -37,6 +44,7 @@ public class PresetListViewModel : ObservableObject
         DisplayedBank = bank;
         SortByNameCommand = new RelayCommand(SortByName);
         RemoveContentDuplicatesCommand = new RelayCommand(RemoveContentDuplicates);
+        SelectionChangedCommand = new RelayCommand<object>(SelectionChanged);
         var presets = DisplayedBank.Bank.Preset.ToList();
         UpdateObservableCollection(presets);
     }
@@ -72,5 +80,11 @@ public class PresetListViewModel : ObservableObject
             var presetViewModel = new PresetViewModel(preset, _dialogService, DeletePresetAction, _isDeleteEnabled);
             PresetViewModels.Add(presetViewModel);
         }
+    }
+
+    private void SelectionChanged(object param)
+    {
+        var items = (IEnumerable)param;
+        var collection = items.Cast<PresetViewModel>();
     }
 }

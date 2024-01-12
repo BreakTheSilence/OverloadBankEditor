@@ -161,4 +161,11 @@ public class ProcessPresetsViewModel : ContentPageViewModelAbstract
         EditableBankListViewModel = new BankListViewModel(_bankManagingService, EditableBankSelected);
         EditableInfoString = $"Banks: {EditableBankListViewModel.BankViewModels.Count}";
     }
+
+    private List<PresetViewModel> GetSelectedPresets()
+    {
+        
+        
+        return null;
+    }
 }
