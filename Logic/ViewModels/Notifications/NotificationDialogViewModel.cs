@@ -5,6 +5,7 @@ namespace Logic.ViewModels.Notifications;
 
 public class NotificationDialogViewModel : DialogViewModelAbstract
 {
+    private Action _closeAction;
     public NotificationDialogViewModel(string notificationTitle, string notificationContent)
     {
         NotificationTitle = notificationTitle;
@@ -15,12 +16,12 @@ public class NotificationDialogViewModel : DialogViewModelAbstract
     
     private void Ok()
     {
-        
+        _closeAction();
     }
 
     private void Cancel()
     {
-        
+        _closeAction();
     }
     
     public override string OkAnswer => "Ok";
@@ -28,6 +29,6 @@ public class NotificationDialogViewModel : DialogViewModelAbstract
 
     public override void SendCloseAction(Action closeAction)
     {
-        throw new NotImplementedException();
+        _closeAction = closeAction;
     }
 }

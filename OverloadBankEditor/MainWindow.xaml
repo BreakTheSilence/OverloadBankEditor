@@ -25,6 +25,8 @@
                 <Grid>
                     <StackPanel Orientation="Vertical">
                         <Button
+                            Height="50"
+                            Margin="5"
                             Content="Process Banks"
                             Command="{Binding ProcessPresetsCommand}">
                             <Button.Style>
@@ -41,6 +43,8 @@
                             </Button.Style>
                         </Button>
                         <Button
+                            Height="50"
+                            Margin="5"
                             Content="Edit existing bank"
                             Command="{Binding EditExistingBankCommand}">
                             <Button.Style>
@@ -56,8 +60,28 @@
                                 </Style>
                             </Button.Style>
                         </Button>
+                        <Button
+                            Height="50"
+                            Margin="5"
+                            Content="Export Bank"
+                            Command="{Binding }">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding CurrentContent, 
+                                Converter={StaticResource TypeCheckConverter}, ConverterParameter='ExportBankViewModel'}"
+                                            Value="True">
+                                            <Setter Property="Background" Value="DarkCyan" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                     </StackPanel>
                     <Button
+                        Height="50"
+                        Margin="5"
                         Content="Settings"
                         VerticalAlignment="Bottom"
                         Command="{Binding OpenSettingsCommand}">

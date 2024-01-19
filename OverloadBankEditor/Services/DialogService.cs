@@ -30,7 +30,19 @@ public class DialogService : IDialogService
 
     public void ShowOkDialog(string dialogTitle, string dialogContent)
     {
-        throw new NotImplementedException();
+        var activeView = GetActiveView();
+        if (activeView is null) return;
+
+        var viewModel = new NotificationDialogViewModel(dialogTitle, dialogContent);
+        var dialogViewModel = new DialogViewModel(viewModel);
+
+        var dialog = new DialogView
+        {
+            DataContext = dialogViewModel,
+            Owner = activeView
+        };
+
+        dialog.ShowDialog();
     }
 
     public bool ShowYesNoDialog(string dialogQuestion, string dialogDescription)

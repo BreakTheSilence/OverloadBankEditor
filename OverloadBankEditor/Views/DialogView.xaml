@@ -21,7 +21,7 @@
                     
                 <Grid Grid.Row="1" Margin="5">
                     <TextBlock Margin="30, 10" Text="{Binding NotificationContent}" 
-                               TextWrapping="Wrap"/>
+                               TextWrapping="Wrap" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
         </DataTemplate>

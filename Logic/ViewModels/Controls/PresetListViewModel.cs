@@ -15,19 +15,9 @@ public class PresetListViewModel : ObservableObject
     private readonly Action<BankViewModel, PresetViewModel> _presetDeletedFromBank;
     private readonly Action<BankViewModel> _presetsCollectionUpdateAction;
     private readonly bool _isDeleteEnabled;
-    // private object _selectedPreset;
     public ObservableCollection<PresetViewModel> PresetViewModels { get; } = [];
     public BankViewModel? DisplayedBank { get; }
-
-    // public object SelectedPresets
-    // {
-    //     get => _selectedPreset;
-    //     set
-    //     {
-    //         var a = 5;
-    //         SetProperty(ref _selectedPreset, value);
-    //     }
-    // }
+    public IEnumerable<PresetViewModel> SelectedPresets { get; private set; }
 
     public RelayCommand SortByNameCommand { get; }
     public RelayCommand RemoveContentDuplicatesCommand { get; }
@@ -44,7 +34,7 @@ public class PresetListViewModel : ObservableObject
         DisplayedBank = bank;
         SortByNameCommand = new RelayCommand(SortByName);
         RemoveContentDuplicatesCommand = new RelayCommand(RemoveContentDuplicates);
-        SelectionChangedCommand = new RelayCommand<object>(SelectionChanged);
+        SelectionChangedCommand = new RelayCommand<IEnumerable>(SelectionChanged);
         var presets = DisplayedBank.Bank.Preset.ToList();
         UpdateObservableCollection(presets);
     }
@@ -82,9 +72,15 @@ public class PresetListViewModel : ObservableObject
         }
     }
 
-    private void SelectionChanged(object param)
+    private void SelectionChanged(IEnumerable? param)
     {
-        var items = (IEnumerable)param;
-        var collection = items.Cast<PresetViewModel>();
+        if (param is null)
+        {
+            SelectedPresets = Array.Empty<PresetViewModel>();
+            return;
+        }
+        var collection = param.Cast<PresetViewModel>();
+        var presetViewModels = collection as PresetViewModel[] ?? collection.ToArray();
+        SelectedPresets = presetViewModels;
     }
 }

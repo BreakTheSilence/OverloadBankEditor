@@ -9,24 +9,26 @@
              mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:PresetListViewModel}">
     <Grid>
         <Grid Grid.Row="0">
-            <ListView ItemsSource="{Binding PresetViewModels}" HorizontalContentAlignment="Stretch"
-                      SelectionMode="Multiple" Padding="5">
-                <b:Interaction.Triggers>
-                    <b:EventTrigger EventName="SelectionChanged">
-                        <b:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
-                                               CommandParameter="{Binding Path=SelectedItems, 
+            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Visible" IsEnabled="True">
+                <ListView ItemsSource="{Binding PresetViewModels}" HorizontalContentAlignment="Stretch"
+                          SelectionMode="Multiple" Padding="5" MaxHeight="600">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="SelectionChanged">
+                            <b:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                                   CommandParameter="{Binding Path=SelectedItems, 
                                                RelativeSource={RelativeSource Mode=FindAncestor, 
-                                               AncestorType={x:Type ListView}}}"/>
-                    </b:EventTrigger>
-                </b:Interaction.Triggers>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="LightCyan" BorderThickness="2" CornerRadius="8">
-                            <controls:PresetControl DataContext="{Binding}" Margin="3"/>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>    
+                                               AncestorType={x:Type ListView}}}" />
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="LightCyan" BorderThickness="2" CornerRadius="8">
+                                <controls:PresetControl DataContext="{Binding}" Margin="3" />
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </UserControl>

@@ -115,6 +115,7 @@ public class EditExistingBankViewModel : ContentPageViewModelAbstract
     private void PresetsUpdated(BankViewModel bankViewModel)
     {
         _bankManagingService.UpdateBank(bankViewModel.Bank);
+        bankViewModel.DeletePresetCommand.Execute(null);
         ReloadPresetList(bankViewModel);
     }
 }
