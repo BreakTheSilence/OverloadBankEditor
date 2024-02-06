@@ -64,7 +64,7 @@
                             Height="50"
                             Margin="5"
                             Content="Export Bank"
-                            Command="{Binding }">
+                            Command="{Binding ExportBankCommand}">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Style.Triggers>

@@ -57,6 +57,11 @@ public class BankManagingService : IBankManagingService
         return bank;
     }
 
+    public void ExportBank(Bank bank, string path, string bankName)
+    {
+        _bankLoaderService.SaveBankToFile(bank, Path.Combine(path, $"{bankName}.ovb"));
+    }
+
     private List<string> GetBankFilePaths(string workingDirectoryPath)
     {
         var ovbFiles = Directory.GetFiles(workingDirectoryPath, "*.ovb").ToList();

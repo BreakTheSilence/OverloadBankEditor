@@ -6,7 +6,7 @@
       xmlns:viewModels="clr-namespace:Logic.ViewModels;assembly=Logic"
       xmlns:pages="clr-namespace:Logic.ViewModels.Pages;assembly=Logic"
       mc:Ignorable="d" d:DataContext="{d:DesignInstance pages:SettingsPageViewModel}"
-      Title="SelectFolderView" Height="450" Width="800" Loaded="SelectFolderView_OnLoaded">
+      Title="SelectFolderView" Height="450" Width="800">
     <Grid>
         <Button HorizontalAlignment="Center" VerticalAlignment="Center" 
                 Content="Select working directory" Width="150" Height="60"

@@ -10,17 +10,4 @@ public partial class SettingsView : Page
     {
         InitializeComponent();
     }
-
-    private string SelectWorkingDirectory()
-    {
-        using var dialog = new FolderBrowserDialog();
-        var result = dialog.ShowDialog();
-        return result != DialogResult.OK ? string.Empty : dialog.SelectedPath;
-    }
-
-    private void SelectFolderView_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not SettingsPageViewModel viewModel) return;
-        viewModel.SetupFolderSelection(SelectWorkingDirectory);
-    }
 }

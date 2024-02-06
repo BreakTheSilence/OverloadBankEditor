@@ -65,6 +65,10 @@
              <DataTemplate DataType="{x:Type pages:SettingsPageViewModel}">
                  <views:SettingsView/>
              </DataTemplate>
+        
+             <DataTemplate DataType="{x:Type pages:ExportBankViewModel}">
+                 <views:ExportBankView/>
+             </DataTemplate>
             
              <DataTemplate DataType="{x:Type controlsViewModels:BankListViewModel}">
                  <controls:BankListControl/>

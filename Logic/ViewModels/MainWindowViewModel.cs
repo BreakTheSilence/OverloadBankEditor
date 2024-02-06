@@ -19,6 +19,7 @@ public class MainWindowViewModel : ObservableObject
     public RelayCommand ProcessPresetsCommand { get; }
     public RelayCommand EditExistingBankCommand { get; }
     public RelayCommand OpenSettingsCommand { get; }
+    public RelayCommand ExportBankCommand { get; }
     
     public ContentPageViewModelAbstract CurrentContent
     {
@@ -46,10 +47,11 @@ public class MainWindowViewModel : ObservableObject
         ProcessPresetsCommand = new RelayCommand(ProcessPresets);
         EditExistingBankCommand = new RelayCommand(EditExistingBank);
         OpenSettingsCommand = new RelayCommand(OpenSettings);
+        ExportBankCommand = new RelayCommand(ExportBank);
         
         if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath))
         {
-            CurrentContent = new SettingsPageViewModel(FolderSelected);
+            CurrentContent = new SettingsPageViewModel(FolderSelected, _dialogService);
         }
         else
         {
@@ -79,11 +81,18 @@ public class MainWindowViewModel : ObservableObject
 
     private void EditExistingBank()
     {
+        if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath)) return;
         CurrentContent = new EditExistingBankViewModel(_pickBankFileFunction, _bankManagingService, _dialogService);
     }
 
     private void OpenSettings()
     {
-        CurrentContent = new SettingsPageViewModel(FolderSelected);
+        CurrentContent = new SettingsPageViewModel(FolderSelected, _dialogService);
+    }
+
+    private void ExportBank()
+    {
+        if (string.IsNullOrWhiteSpace(_settingsService.LoadSettings().WorkingDirectoryPath)) return;
+        CurrentContent = new ExportBankViewModel(_bankManagingService, _dialogService);
     }
 }

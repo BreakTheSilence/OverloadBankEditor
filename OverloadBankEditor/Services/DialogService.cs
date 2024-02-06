@@ -9,6 +9,14 @@ namespace OverloadBankEditor.Services;
 
 public class DialogService : IDialogService
 {
+    private readonly Func<string> _selectFolderFunction;
+    private readonly Func<string> _selectFileFunction;
+
+    public DialogService(Func<string> selectFolderFunction, Func<string> selectFileFunction)
+    {
+        _selectFolderFunction = selectFolderFunction;
+        _selectFileFunction = selectFileFunction;
+    }
     public string ShowTextInputDialog(string dialogTitle)
     {
         var activeView = GetActiveView();
@@ -62,6 +70,22 @@ public class DialogService : IDialogService
         dialog.ShowDialog();
 
         return viewModel.UserResponse;
+    }
+
+    public string ShowFilePickDialog()
+    {
+        var selectedFile = _selectFileFunction();
+        return string.IsNullOrEmpty(selectedFile) 
+            ? string.Empty 
+            : selectedFile;
+    }
+
+    public string ShowFolderSelectDialog()
+    {
+        var selectedFolder = _selectFolderFunction();
+        return string.IsNullOrEmpty(selectedFolder) 
+            ? string.Empty 
+            : selectedFolder;
     }
 
     private Window? GetActiveView()

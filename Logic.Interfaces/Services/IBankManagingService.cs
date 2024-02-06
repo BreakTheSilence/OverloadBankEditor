@@ -8,4 +8,5 @@ public interface IBankManagingService
     void AddBankFromPath(string bankFilePath);
     void UpdateBank(Bank bank);
     Bank CreateNewBank(string bankName);
+    void ExportBank(Bank bank, string path, string bankName);
 }
